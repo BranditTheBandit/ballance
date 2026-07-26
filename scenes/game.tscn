@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://blc3susku0yay"]
+
+[ext_resource type="Script" uid="uid://b75en0utpwfnr" path="res://scripts/player_controller.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://cjbow7lc4ptw1" path="res://scripts/game_manager.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://dqvg2ou1p70dr" path="res://scripts/timer.gd" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://b7ksjxhqip62q" path="res://scripts/square_spawner.gd" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://dga80n0j7rdh6" path="res://scripts/laser_attacker.gd" id="5_iywne"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8cj0n"]
+
+[sub_resource type="Sky" id="Sky_uwrxv"]
+sky_material = SubResource("ProceduralSkyMaterial_8cj0n")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_yqjtg"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_uwrxv")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_8cj0n"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8cj0n"]
+
+[sub_resource type="Gradient" id="Gradient_lnu2h"]
+colors = PackedColorArray(0.76, 0.76, 0.76, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lbhrr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iywne"]
+width = 300
+height = 300
+noise = SubResource("FastNoiseLite_lbhrr")
+color_ramp = SubResource("Gradient_lnu2h")
+seamless = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p57ef"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5sy4"]
+albedo_color = Color(0.4392157, 0.627451, 1, 1)
+albedo_texture = SubResource("NoiseTexture2D_iywne")
+roughness_texture = SubResource("NoiseTexture2D_p57ef")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uwrxv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8cj0n"]
+size = Vector3(2, 0.1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gee14"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.78431374)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
+size = Vector3(2, 0.1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
+font_size = 100
+
+[node name="Game" type="Node3D" unique_id=84532588]
+script = ExtResource("1_yqjtg")
+level_select_path = "res://scenes/level_descriptor.tscn"
+
+[node name="Camera" type="Camera3D" parent="." unique_id=553596146]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 1.5, 0, 1.5)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1778278860]
+environment = SubResource("Environment_yqjtg")
+camera_attributes = SubResource("CameraAttributesPractical_8cj0n")
+
+[node name="Ball" type="RigidBody3D" parent="." unique_id=188761365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7850552, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Ball" unique_id=1745214107]
+gi_mode = 2
+gi_lightmap_texel_scale = 10.0
+mesh = SubResource("SphereMesh_8cj0n")
+surface_material_override/0 = SubResource("StandardMaterial3D_u5sy4")
+
+[node name="Collision" type="CollisionShape3D" parent="Ball" unique_id=952875079]
+shape = SubResource("SphereShape3D_uwrxv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=235754967]
+transform = Transform3D(0.23344542, -0.8983526, 0.37210986, 0, 0.38268343, 0.9238795, -0.9723699, -0.21567544, 0.089335695, 4.749, 8.383, 0.9)
+
+[node name="Plate" type="AnimatableBody3D" parent="." unique_id=1340670473]
+script = ExtResource("1_uwrxv")
+
+[node name="Mesh" type="MeshInstance3D" parent="Plate" unique_id=21517570]
+mesh = SubResource("BoxMesh_8cj0n")
+surface_material_override/0 = SubResource("StandardMaterial3D_gee14")
+
+[node name="Collison" type="CollisionShape3D" parent="Plate" unique_id=1572720951]
+shape = SubResource("BoxShape3D_uwrxv")
+
+[node name="UI" type="Control" parent="." unique_id=1701646400]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Timer" type="Label" parent="UI" unique_id=1615067522]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "15"
+label_settings = SubResource("LabelSettings_uwrxv")
+horizontal_alignment = 1
+script = ExtResource("3_lnu2h")
+level_select_path = "res://scenes/level_descriptor.tscn"
+win_path = "res://scenes/win.tscn"
+
+[node name="SquareSpawner" type="Node3D" parent="." unique_id=1832355382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+visible = false
+script = ExtResource("4_lbhrr")
+
+[node name="LaserAttacker" type="Node3D" parent="." unique_id=339031986 node_paths=PackedStringArray("ball")]
+visible = false
+script = ExtResource("5_iywne")
+ball = NodePath("../Ball")
+level_select_path = "res://scenes/level_descriptor.tscn"

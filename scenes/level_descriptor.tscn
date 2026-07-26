@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cbfboaiwattph"]
+
+[ext_resource type="Script" uid="uid://c6vwy4biw4etj" path="res://scripts/level_selector.gd" id="1_gioan"]
+
+[sub_resource type="Theme" id="Theme_gioan"]
+Label/font_sizes/font_size = 50
+
+[node name="LevelDescriptor" type="Node2D" unique_id=1877912461 node_paths=PackedStringArray("list")]
+script = ExtResource("1_gioan")
+list = NodePath("UI/List")
+game_path = "res://scenes/game.tscn"
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=638672675]
+
+[node name="List" type="VBoxContainer" parent="UI" unique_id=1870798738]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_gioan")
