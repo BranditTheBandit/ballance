@@ -15,3 +15,7 @@ There are also several random modifiers that appear on each level, inspired by C
 ## Running / Building
 
 This is a Godot 4.6.3 game so all you need is that particular version of Godot (or any future version that can convert from that version). Then you can open the project and build it using Project -> Export.
+
+### AI use
+
+AI was used for like 0.001 seconds to fix a bug of the ball falling through the platform. Absolutely everything else was made by me.
