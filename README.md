@@ -11,3 +11,7 @@ There are also several random modifiers that appear on each level, inspired by C
 - It's raining squares: squares fall from the sky and might hit you off
 - 1.25x speed: increases physics processing speed
 - Laser attacks: Lasers randomly strike around the platform and can kill you (...or crash your game, which is definitely on purpose)
+
+## Running / Building
+
+This is a Godot 4.6.3 game so all you need is that particular version of Godot (or any future version that can convert from that version). Then you can open the project and build it using Project -> Export.
